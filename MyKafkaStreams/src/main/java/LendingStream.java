@@ -79,7 +79,7 @@ public class LendingStream {
         // stream za filtriranje bolj aktivnih uporabnikov
 
         KTable<Integer, String> memberLendingCountsTable = builder.table("kafka-lending-by-member", Consumed.with(Serdes.Integer(), Serdes.String()));
-        bookLendingCountsTable
+        memberLendingCountsTable
                 .filter((k, v) -> Integer.valueOf(v) > 10)
                 .toStream()
                 .to("kafka-lending-filter-top-members", Produced.with(Serdes.Integer(), Serdes.String()));
